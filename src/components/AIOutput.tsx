@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { Button } from "@/components/ui/button";
 import { Copy, Check, Loader2 } from "lucide-react";
 
@@ -38,9 +39,25 @@ export function AIOutput({
             {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
             <span className="ml-1.5">{copied ? "Copied" : "Copy"}</span>
           </Button>
-          <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed pr-20">
-            {content}
-          </pre>
+          <div className="text-sm leading-relaxed pr-20 space-y-2">
+            <ReactMarkdown
+              components={{
+                h2: ({ children }) => (
+                  <h2 className="text-base font-bold mt-4 mb-2">{children}</h2>
+                ),
+                ul: ({ children }) => (
+                  <ul className="list-disc pl-5 space-y-1">{children}</ul>
+                ),
+                li: ({ children }) => <li className="mb-0.5">{children}</li>,
+                strong: ({ children }) => (
+                  <strong className="font-bold">{children}</strong>
+                ),
+                p: ({ children }) => <p className="mb-2">{children}</p>,
+              }}
+            >
+              {content}
+            </ReactMarkdown>
+          </div>
         </>
       ) : (
         <p className="text-sm text-muted-foreground">{placeholder}</p>
