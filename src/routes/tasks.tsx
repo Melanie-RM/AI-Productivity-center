@@ -34,10 +34,12 @@ function TasksPage() {
       toast.error("Please list at least one task");
       return;
     }
+    const effectiveTimeframe =
+      timeframe === "Other" ? customTimeframe.trim() || "Other" : timeframe;
     setLoading(true);
     setOutput("");
     try {
-      const res = await planTasks({ data: { tasks, timeframe } });
+      const res = await planTasks({ data: { tasks, timeframe: effectiveTimeframe } });
       setOutput(res.content);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Failed to plan tasks");
