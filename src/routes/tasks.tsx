@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AppLayout, PageHeader, Disclaimer } from "@/components/AppLayout";
 import { AIOutput } from "@/components/AIOutput";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/tasks")({
 function TasksPage() {
   const [tasks, setTasks] = useState("");
   const [timeframe, setTimeframe] = useState("Today");
+  const [customTimeframe, setCustomTimeframe] = useState("");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -32,10 +34,12 @@ function TasksPage() {
       toast.error("Please list at least one task");
       return;
     }
+    const effectiveTimeframe =
+      timeframe === "Other" ? customTimeframe.trim() || "Other" : timeframe;
     setLoading(true);
     setOutput("");
     try {
-      const res = await planTasks({ data: { tasks, timeframe } });
+      const res = await planTasks({ data: { tasks, timeframe: effectiveTimeframe } });
       setOutput(res.content);
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Failed to plan tasks");
@@ -74,8 +78,17 @@ function TasksPage() {
                 <SelectItem value="This week">This week</SelectItem>
                 <SelectItem value="This month">This month</SelectItem>
                 <SelectItem value="6 months">6 months</SelectItem>
+                <SelectItem value="Other">Other</SelectItem>
               </SelectContent>
             </Select>
+            {timeframe === "Other" && (
+              <Input
+                id="custom-timeframe"
+                placeholder="Enter your timeframe"
+                value={customTimeframe}
+                onChange={(e) => setCustomTimeframe(e.target.value)}
+              />
+            )}
           </div>
           <Button onClick={onRun} disabled={loading} className="w-full">
             <Sparkles className="h-4 w-4 mr-2" />
