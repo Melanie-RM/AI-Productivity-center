@@ -73,14 +73,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "AI Productivity center" },
+      { name: "description", content: "AI Productivity Hub automates professional tasks with AI-powered tools." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "AI Productivity center" },
+      { property: "og:description", content: "AI Productivity Hub automates professional tasks with AI-powered tools." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "AI Productivity center" },
+      { name: "twitter:description", content: "AI Productivity Hub automates professional tasks with AI-powered tools." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a0eadf28-c860-48aa-901c-d34929e297ac/id-preview-2477d3ed--1c0b322f-b65e-4675-82dd-ef529597e6ab.lovable.app-1779955440139.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a0eadf28-c860-48aa-901c-d34929e297ac/id-preview-2477d3ed--1c0b322f-b65e-4675-82dd-ef529597e6ab.lovable.app-1779955440139.png" },
     ],
     links: [
       {
