@@ -3,9 +3,15 @@ import { useState } from "react";
 import { AppLayout, PageHeader, Disclaimer } from "@/components/AppLayout";
 import { AIOutput } from "@/components/AIOutput";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 import { planTasks } from "@/lib/api/ai.functions";
 import { Sparkles } from "lucide-react";
@@ -58,12 +64,18 @@ function TasksPage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="timeframe">Timeframe</Label>
-            <Input
-              id="timeframe"
-              value={timeframe}
-              onChange={(e) => setTimeframe(e.target.value)}
-              placeholder="Today, This week, Next 3 days…"
-            />
+            <Select value={timeframe} onValueChange={setTimeframe}>
+              <SelectTrigger id="timeframe" className="w-full">
+                <SelectValue placeholder="Select a timeframe" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Today">Today</SelectItem>
+                <SelectItem value="Tomorrow">Tomorrow</SelectItem>
+                <SelectItem value="This week">This week</SelectItem>
+                <SelectItem value="This month">This month</SelectItem>
+                <SelectItem value="6 months">6 months</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <Button onClick={onRun} disabled={loading} className="w-full">
             <Sparkles className="h-4 w-4 mr-2" />
