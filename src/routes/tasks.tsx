@@ -25,6 +25,7 @@ export const Route = createFileRoute("/tasks")({
 function TasksPage() {
   const [tasks, setTasks] = useState("");
   const [timeframe, setTimeframe] = useState("Today");
+  const [customTimeframe, setCustomTimeframe] = useState("");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
 
