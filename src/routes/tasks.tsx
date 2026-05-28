@@ -78,8 +78,17 @@ function TasksPage() {
                 <SelectItem value="This week">This week</SelectItem>
                 <SelectItem value="This month">This month</SelectItem>
                 <SelectItem value="6 months">6 months</SelectItem>
+                <SelectItem value="Other">Other</SelectItem>
               </SelectContent>
             </Select>
+            {timeframe === "Other" && (
+              <Input
+                id="custom-timeframe"
+                placeholder="Enter your timeframe"
+                value={customTimeframe}
+                onChange={(e) => setCustomTimeframe(e.target.value)}
+              />
+            )}
           </div>
           <Button onClick={onRun} disabled={loading} className="w-full">
             <Sparkles className="h-4 w-4 mr-2" />
