@@ -64,12 +64,18 @@ function TasksPage() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="timeframe">Timeframe</Label>
-            <Input
-              id="timeframe"
-              value={timeframe}
-              onChange={(e) => setTimeframe(e.target.value)}
-              placeholder="Today, This week, Next 3 days…"
-            />
+            <Select value={timeframe} onValueChange={setTimeframe}>
+              <SelectTrigger id="timeframe" className="w-full">
+                <SelectValue placeholder="Select a timeframe" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Today">Today</SelectItem>
+                <SelectItem value="Tomorrow">Tomorrow</SelectItem>
+                <SelectItem value="This week">This week</SelectItem>
+                <SelectItem value="This month">This month</SelectItem>
+                <SelectItem value="6 months">6 months</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <Button onClick={onRun} disabled={loading} className="w-full">
             <Sparkles className="h-4 w-4 mr-2" />
