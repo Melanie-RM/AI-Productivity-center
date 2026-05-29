@@ -84,8 +84,8 @@ Be precise, neutral, and concise. Do not invent details not present in the notes
 export const planTasks = createServerFn({ method: "POST" })
   .inputValidator(
     z.object({
-      tasks: z.string().min(1),
-      timeframe: z.string().optional(),
+      tasks: z.string().min(1).max(10000),
+      timeframe: z.string().max(200).optional(),
     }),
   )
   .handler(async ({ data }) => {
