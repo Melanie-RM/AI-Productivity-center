@@ -108,7 +108,7 @@ Be realistic and concrete.`;
 
 // ---------- Research Assistant ----------
 export const researchTopic = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ topic: z.string().min(2) }))
+  .inputValidator(z.object({ topic: z.string().min(2).max(500) }))
   .handler(async ({ data }) => {
     const system = `You are a senior research analyst. Produce a structured briefing in Markdown:
 ## Overview
