@@ -135,7 +135,7 @@ const MessageSchema = z.object({
 });
 
 export const chatComplete = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ messages: z.array(MessageSchema).min(1) }))
+  .inputValidator(z.object({ messages: z.array(MessageSchema).min(1).max(50) }))
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("Missing LOVABLE_API_KEY");
