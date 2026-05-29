@@ -58,6 +58,10 @@ function Dashboard() {
         title="Welcome back"
         description="Your AI productivity suite — pick a tool to get started."
       />
+      <div className="mb-8">
+        <TodayTasks />
+      </div>
+      <h2 className="text-lg font-semibold mb-3">Tools</h2>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f) => {
           const Icon = f.icon;
