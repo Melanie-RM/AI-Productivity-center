@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppLayout, PageHeader } from "@/components/AppLayout";
+import { TodayTasks } from "@/components/TodayTasks";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, FileText, ListChecks, Search, MessageSquare, ArrowRight } from "lucide-react";
 
