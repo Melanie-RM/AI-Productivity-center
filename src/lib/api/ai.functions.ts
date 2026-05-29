@@ -37,10 +37,10 @@ async function callAI(system: string, user: string): Promise<string> {
 export const generateEmail = createServerFn({ method: "POST" })
   .inputValidator(
     z.object({
-      purpose: z.string().min(1),
-      audience: z.string().min(1),
-      tone: z.string().min(1),
-      details: z.string().optional(),
+      purpose: z.string().min(1).max(500),
+      audience: z.string().min(1).max(200),
+      tone: z.string().min(1).max(100),
+      details: z.string().max(5000).optional(),
     }),
   )
   .handler(async ({ data }) => {
@@ -61,7 +61,7 @@ ${data.details ? `Additional details:\n${data.details}` : ""}`;
 
 // ---------- Meeting Notes Summarizer ----------
 export const summarizeMeeting = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ notes: z.string().min(10) }))
+  .inputValidator(z.object({ notes: z.string().min(10).max(20000) }))
   .handler(async ({ data }) => {
     const system = `You are an executive assistant who turns raw meeting notes into structured summaries.
 Output Markdown with these exact sections in this order:
@@ -84,8 +84,8 @@ Be precise, neutral, and concise. Do not invent details not present in the notes
 export const planTasks = createServerFn({ method: "POST" })
   .inputValidator(
     z.object({
-      tasks: z.string().min(1),
-      timeframe: z.string().optional(),
+      tasks: z.string().min(1).max(10000),
+      timeframe: z.string().max(200).optional(),
     }),
   )
   .handler(async ({ data }) => {
@@ -108,7 +108,7 @@ Be realistic and concrete.`;
 
 // ---------- Research Assistant ----------
 export const researchTopic = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ topic: z.string().min(2) }))
+  .inputValidator(z.object({ topic: z.string().min(2).max(500) }))
   .handler(async ({ data }) => {
     const system = `You are a senior research analyst. Produce a structured briefing in Markdown:
 ## Overview
@@ -131,11 +131,11 @@ Be accurate, neutral, and avoid speculation. Note when something is uncertain.`;
 // ---------- Chatbot ----------
 const MessageSchema = z.object({
   role: z.enum(["user", "assistant"]),
-  content: z.string(),
+  content: z.string().min(1).max(10000),
 });
 
 export const chatComplete = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ messages: z.array(MessageSchema).min(1) }))
+  .inputValidator(z.object({ messages: z.array(MessageSchema).min(1).max(50) }))
   .handler(async ({ data }) => {
     const key = process.env.LOVABLE_API_KEY;
     if (!key) throw new Error("Missing LOVABLE_API_KEY");
