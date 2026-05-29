@@ -131,7 +131,7 @@ Be accurate, neutral, and avoid speculation. Note when something is uncertain.`;
 // ---------- Chatbot ----------
 const MessageSchema = z.object({
   role: z.enum(["user", "assistant"]),
-  content: z.string(),
+  content: z.string().min(1).max(10000),
 });
 
 export const chatComplete = createServerFn({ method: "POST" })
