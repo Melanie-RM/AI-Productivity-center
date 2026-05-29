@@ -1,8 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { AppLayout, PageHeader } from "@/components/AppLayout";
 import { TodayTasks } from "@/components/TodayTasks";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, FileText, ListChecks, Search, MessageSquare, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,72 +16,97 @@ export const Route = createFileRoute("/")({
   component: Dashboard,
 });
 
-const features = [
-  {
-    to: "/email",
-    title: "Smart Email Generator",
-    desc: "Draft polished emails tuned to your tone and audience.",
-    icon: Mail,
-  },
-  {
-    to: "/meeting",
-    title: "Meeting Notes Summarizer",
-    desc: "Turn raw notes into key points, actions, and deadlines.",
-    icon: FileText,
-  },
-  {
-    to: "/tasks",
-    title: "AI Task Planner",
-    desc: "Prioritize and schedule your day with the Eisenhower Matrix.",
-    icon: ListChecks,
-  },
-  {
-    to: "/research",
-    title: "AI Research Assistant",
-    desc: "Get structured insights and summaries on any topic.",
-    icon: Search,
-  },
-  {
-    to: "/chat",
-    title: "AI Chat",
-    desc: "A conversational assistant for anything else you need.",
-    icon: MessageSquare,
-  },
-] as const;
+const quotes = [
+  "Your focus determines your reality.",
+  "Small steps every day lead to big results.",
+  "Progress, not perfection.",
+  "You are capable of amazing things.",
+  "Clarity comes from action, not thought.",
+  "Stay patient and trust your journey.",
+  "What you do today can improve all your tomorrows.",
+  "Effort is the path to mastery.",
+  "Your only limit is you.",
+  "Believe you can and you're halfway there.",
+  "The secret of getting ahead is getting started.",
+  "Don't watch the clock; do what it does. Keep going.",
+  "Success is the sum of small efforts, repeated day in and day out.",
+  "Act as if what you do makes a difference. It does.",
+  "Start where you are. Use what you have. Do what you can.",
+  "Everything you've ever wanted is on the other side of fear.",
+  "Dream big and dare to fail.",
+  "It always seems impossible until it's done.",
+  "The best way to predict the future is to create it.",
+  "Your time is limited, so don't waste it living someone else's life.",
+  "Do something today that your future self will thank you for.",
+  "Hardships often prepare ordinary people for an extraordinary destiny.",
+  "Don't be pushed around by the fears in your mind.",
+  "We generate fears while we sit. We overcome them by action.",
+  "Light tomorrow with today.",
+  "You don't have to be great to start, but you have to start to be great.",
+  "A goal without a plan is just a wish.",
+  "Focus on being productive instead of busy.",
+  "The only way to do great work is to love what you do.",
+  "Discipline is the bridge between goals and accomplishment.",
+  "Opportunities don't happen. You create them.",
+  "Quality means doing it right when no one is looking.",
+  "Don't count the days, make the days count.",
+  "If you want to achieve greatness stop asking for permission.",
+  "Work hard in silence, let success be your noise.",
+  "Success usually comes to those who are too busy to be looking for it.",
+  "Don't be afraid to give up the good to go for the great.",
+  "I find that the harder I work, the more luck I seem to have.",
+  "There are no shortcuts to any place worth going.",
+  "Try not to become a person of success, but rather a person of value.",
+  "Either you run the day, or the day runs you.",
+  "The future depends on what you do today.",
+  "Nothing will work unless you do.",
+  "The best preparation for tomorrow is doing your best today.",
+  "You are never too old to set another goal or to dream a new dream.",
+  "Change your thoughts and you change your world.",
+  "Happiness depends upon ourselves.",
+  "Turn your wounds into wisdom.",
+  "It does not matter how slowly you go as long as you do not stop.",
+  "Everything has beauty, but not everyone sees it.",
+  "With the new day comes new strength and new thoughts.",
+  "The only journey is the one within.",
+  "What we think, we become.",
+  "Strive not to be a success, but rather to be of value.",
+  "Be the change that you wish to see in the world.",
+  "In the middle of difficulty lies opportunity.",
+  "Well done is better than well said.",
+  "He who has a why to live can bear almost any how.",
+  "Make each day your masterpiece.",
+  "Life is 10% what happens to us and 90% how we react to it.",
+  "The mind is everything. What you think you become.",
+  "An unexamined life is not worth living.",
+  "Knowing yourself is the beginning of all wisdom.",
+];
+
+function getDayOfYear(date: Date) {
+  const start = new Date(date.getFullYear(), 0, 0);
+  const diff = date.getTime() - start.getTime();
+  return Math.floor(diff / (1000 * 60 * 60 * 24));
+}
+
+function DailyQuote() {
+  const quote = quotes[getDayOfYear(new Date()) % quotes.length];
+  return (
+    <div className="rounded-lg border bg-card p-5 mb-6">
+      <p className="text-sm text-muted-foreground italic">"{quote}"</p>
+    </div>
+  );
+}
 
 function Dashboard() {
   return (
     <AppLayout>
       <PageHeader
         title="Welcome back"
-        description="Your AI productivity suite — pick a tool to get started."
+        description="Start your day with focus and intention."
       />
+      <DailyQuote />
       <div className="mb-8">
         <TodayTasks />
-      </div>
-      <h2 className="text-lg font-semibold mb-3">Tools</h2>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {features.map((f) => {
-          const Icon = f.icon;
-          return (
-            <Link key={f.to} to={f.to} className="group">
-              <Card className="h-full transition-all hover:shadow-md hover:border-primary/50">
-                <CardHeader>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary mb-2">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <CardTitle className="text-base">{f.title}</CardTitle>
-                  <CardDescription>{f.desc}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-sm font-medium text-primary inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                    Open <ArrowRight className="h-3.5 w-3.5" />
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          );
-        })}
       </div>
       <div className="mt-8 rounded-lg border bg-card p-5">
         <h2 className="text-sm font-semibold mb-1">About this assistant</h2>
