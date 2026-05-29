@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppLayout, PageHeader } from "@/components/AppLayout";
+import { TodayTasks } from "@/components/TodayTasks";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, FileText, ListChecks, Search, MessageSquare, ArrowRight } from "lucide-react";
 
@@ -57,6 +58,10 @@ function Dashboard() {
         title="Welcome back"
         description="Your AI productivity suite — pick a tool to get started."
       />
+      <div className="mb-8">
+        <TodayTasks />
+      </div>
+      <h2 className="text-lg font-semibold mb-3">Tools</h2>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f) => {
           const Icon = f.icon;
