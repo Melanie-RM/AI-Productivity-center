@@ -90,10 +90,30 @@ function TasksPage() {
               />
             )}
           </div>
-          <Button onClick={onRun} disabled={loading} className="w-full">
-            <Sparkles className="h-4 w-4 mr-2" />
-            {loading ? "Planning…" : "Plan My Day"}
-          </Button>
+          {(() => {
+            const labelMap: Record<string, string> = {
+              Today: "Plan My Day",
+              Tomorrow: "Plan My Tomorrow",
+              "This week": "Plan My Week",
+              "This month": "Plan My Month",
+              "6 months": "Plan My 6 Months",
+              Other: "Plan My Schedule",
+            };
+            const loadingMap: Record<string, string> = {
+              Today: "Planning your day…",
+              Tomorrow: "Planning tomorrow…",
+              "This week": "Planning your week…",
+              "This month": "Planning your month…",
+              "6 months": "Planning 6 months…",
+              Other: "Planning…",
+            };
+            return (
+              <Button onClick={onRun} disabled={loading} className="w-full">
+                <Sparkles className="h-4 w-4 mr-2" />
+                {loading ? loadingMap[timeframe] : labelMap[timeframe]}
+              </Button>
+            );
+          })()}
           <Disclaimer />
         </div>
         <div>
