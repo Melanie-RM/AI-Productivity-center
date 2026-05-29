@@ -37,10 +37,10 @@ async function callAI(system: string, user: string): Promise<string> {
 export const generateEmail = createServerFn({ method: "POST" })
   .inputValidator(
     z.object({
-      purpose: z.string().min(1),
-      audience: z.string().min(1),
-      tone: z.string().min(1),
-      details: z.string().optional(),
+      purpose: z.string().min(1).max(500),
+      audience: z.string().min(1).max(200),
+      tone: z.string().min(1).max(100),
+      details: z.string().max(5000).optional(),
     }),
   )
   .handler(async ({ data }) => {
