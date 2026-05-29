@@ -61,7 +61,7 @@ ${data.details ? `Additional details:\n${data.details}` : ""}`;
 
 // ---------- Meeting Notes Summarizer ----------
 export const summarizeMeeting = createServerFn({ method: "POST" })
-  .inputValidator(z.object({ notes: z.string().min(10) }))
+  .inputValidator(z.object({ notes: z.string().min(10).max(20000) }))
   .handler(async ({ data }) => {
     const system = `You are an executive assistant who turns raw meeting notes into structured summaries.
 Output Markdown with these exact sections in this order:
